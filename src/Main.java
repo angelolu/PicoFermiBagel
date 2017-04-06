@@ -91,29 +91,43 @@ public class Main {
     private static void checkLogic() {
         //Checks game types of inputted digits
     	
-    	int guess = Integer.parseInt(txt1.getText()) * 10 + Integer.parseInt(txt2.getText());
-        System.out.println(guess);
+    	//Check if the text fields have unique digits (same digits not allowed)
+    	if(Integer.parseInt(txt1.getText()) != Integer.parseInt(txt2.getText())) {
     	
-    	//Check first text field
-        if (Integer.parseInt(txt1.getText()) == firstNum) {
-            System.out.println("Fermi");
-        } else if (Integer.parseInt(txt1.getText()) == secondNum) {
-            System.out.println("Pico");
-        } else {
-        	myNumberGrid.selectRow(guess);
-        	System.out.println("Bagel");
-        }
+        	//Put guess digits into one number
+        	int guess = Integer.parseInt(txt1.getText()) * 10 + Integer.parseInt(txt2.getText());
+            System.out.println(guess);
+        	
+        	//Check first text field
+            if (Integer.parseInt(txt1.getText()) == firstNum) {
+                txt1.setEditable(false); /* Guessed right digit in right position so cannot edit this digit */
+            	System.out.println("Fermi");
+            } else if (Integer.parseInt(txt1.getText()) == secondNum) {
+            	//Cross out numbers ending with this digit
+                myNumberGrid.selectColumn(guess);
+            	System.out.println("Pico");
+            } else {
+            	//Cross out numbers starting with this digit
+            	myNumberGrid.selectRow(guess);
+            	System.out.println("Bagel");
+            }
 
-        //Check second text field
-        if (Integer.parseInt(txt2.getText()) == secondNum) {
-            System.out.println("Fermi");
-        } else if (Integer.parseInt(txt2.getText()) == firstNum) {
-            System.out.println("Pico");
-        } else {
-        	myNumberGrid.selectColumn(guess);
-        	System.out.println("Bagel");
-        }
-
+            //Check second text field
+            if (Integer.parseInt(txt2.getText()) == secondNum) {
+            	txt2.setEditable(false); /* Guessed right digit in right position so cannot edit this digit */
+            	System.out.println("Fermi");
+            } else if (Integer.parseInt(txt2.getText()) == firstNum) {
+                //Cross out numbers starting with this digit
+            	myNumberGrid.selectRow(guess);
+            	System.out.println("Pico");
+            } else {
+            	//Cross out numbers ending with this digit
+            	myNumberGrid.selectColumn(guess);
+            	System.out.println("Bagel");
+            }
+            
+            
+    	}
         numTries++;
         System.out.println(numTries);
     }
