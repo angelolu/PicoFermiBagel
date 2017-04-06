@@ -8,9 +8,15 @@ public class Main{
     static NumberGrid myNumberGrid;
     static int numTries; /* Number of tries the player takes to guess correct number */
 
+    
+    static Logic l1 = new Logic();
+    static Logic l2 = new Logic();
+   
+    static JTextField txt1, txt2;
+    
     public static void main(String[] args) {
         numTries = 0;
-
+       
         //Initializes GUI elements
         myNumberGrid = new NumberGrid();
         //Initializes JFrame and JPanel
@@ -37,11 +43,12 @@ public class Main{
         });
 
         //Initialize text fields
-        JTextField txt1 = new JTextField(20);
-        JTextField txt2 = new JTextField(20);
+        txt1 = new JTextField(20);
+        txt2 = new JTextField(20);
 
         //Adds components to panel
         northPanel.add(btnReset);
+        southPanel.add(btnCheck);
         southPanel.add(txt1);
         southPanel.add(txt2);
         mainPanel.add(northPanel, BorderLayout.NORTH);
@@ -71,16 +78,14 @@ public class Main{
         System.out.println(firstNum * 10 + secondNum); //Combines to give computer generated number as a single number
     }
     private static void checkLogic(){
-        //Logic l1 = new Logic(Integer.parseInt(txt1.getText()), firstNum, secondNum);
-        //Logic l2 = new Logic(Integer.parseInt(txt2.getText()), secondNum, firstNum);
-
-        //System.out.println(l1.getState());
-        //System.out.println(l2.getState());
+    	//Checks game types of inputed digits
+		l1.setLogic(Integer.parseInt(txt1.getText()), firstNum, secondNum);
+		l2.setLogic(Integer.parseInt(txt2.getText()), secondNum, firstNum);
         
-        //Initializes game logic for each text field
-        Logic l1 = new Logic();
-        Logic l2 = new Logic();
-
+		System.out.println(l1.getState());
+        System.out.println(l2.getState());
+        
+        increment();
     }
 	
 	//Increments numTries as a static method
