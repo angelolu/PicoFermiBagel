@@ -7,14 +7,18 @@ public class Main {
     static int firstNum, secondNum;
     static NumberGrid myNumberGrid;
     static int numTries; /* Number of tries the player takes to guess correct number */
-
-
     static Logic l1 = new Logic();
     static Logic l2 = new Logic();
-
     static JTextField txt1, txt2;
+    static JLabel labelTries;
 
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(
+                    UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception ex) {
+            System.out.println("Not found.");
+        }
         //Initializes GUI elements
         myNumberGrid = new NumberGrid();
         //Initializes JFrame and JPanel
@@ -24,8 +28,8 @@ public class Main {
         mainPanel.setLayout(new BorderLayout());
 
         //Initializes buttons
-        JButton btnReset = new JButton();
-        JButton btnCheck = new JButton();
+        JButton btnReset = new JButton("Reset Game");
+        JButton btnCheck = new JButton("Check Input");
         //Event listener for the button
         btnReset.addActionListener(new ActionListener() {
             @Override
@@ -44,11 +48,16 @@ public class Main {
         txt1 = new JTextField(20);
         txt2 = new JTextField(20);
 
+        //Initializes labels
+        labelTries = new JLabel("Tries: 0");
+
         //Adds components to panel
+        northPanel.add(labelTries);
         northPanel.add(btnReset);
-        southPanel.add(btnCheck);
+        southPanel.add(new JLabel("Guess:"));
         southPanel.add(txt1);
         southPanel.add(txt2);
+        southPanel.add(btnCheck);
         mainPanel.add(northPanel, BorderLayout.NORTH);
         mainPanel.add(myNumberGrid, BorderLayout.CENTER);
         mainPanel.add(southPanel, BorderLayout.SOUTH);
