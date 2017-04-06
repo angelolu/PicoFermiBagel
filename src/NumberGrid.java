@@ -26,8 +26,6 @@ public class NumberGrid extends JPanel {
             }
         }
         resetColors();
-            selectRow(25);
-        selectColumn(25);
     }
 
     private void setBGColor(int num, Color c) {
