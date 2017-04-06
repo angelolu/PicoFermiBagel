@@ -74,26 +74,36 @@ public class Main {
         while (firstNum == secondNum) {
             secondNum = rand.nextInt(9) + 1;
         }
+        myNumberGrid.resetColors();
         System.out.println(firstNum * 10 + secondNum); //Combines to give computer generated number as a single number
 
     }
 
     private static void checkLogic() {
         //Checks game types of inputted digits
-
-        //Check first text field
+    	
+    	int guess = Integer.parseInt(txt1.getText()) * 10 + Integer.parseInt(txt2.getText());
+        System.out.println(guess);
+    	
+    	//Check first text field
         if (Integer.parseInt(txt1.getText()) == firstNum) {
             System.out.println("Fermi");
         } else if (Integer.parseInt(txt1.getText()) == secondNum) {
             System.out.println("Pico");
-        } else System.out.println("Bagel");
+        } else {
+        	myNumberGrid.selectRow(guess);
+        	System.out.println("Bagel");
+        }
 
-        //Check first text field
+        //Check second text field
         if (Integer.parseInt(txt2.getText()) == secondNum) {
             System.out.println("Fermi");
-        } else if (Integer.parseInt(txt1.getText()) == firstNum) {
+        } else if (Integer.parseInt(txt2.getText()) == firstNum) {
             System.out.println("Pico");
-        } else System.out.println("Bagel");
+        } else {
+        	myNumberGrid.selectColumn(guess);
+        	System.out.println("Bagel");
+        }
 
         numTries++;
         System.out.println(numTries);

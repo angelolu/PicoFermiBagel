@@ -32,7 +32,7 @@ public class NumberGrid extends JPanel {
         if (num < 100 && num >= 10) panel_array[num / 10 - 1][num - (num / 10 * 10)].setBackground(c);
     }
 
-    private void resetColors() {
+    public void resetColors() {
         for (int i = 0; i < 100; i++) setBGColor(i, defBG);
         for (int i = 1; i < 10; i++) setBGColor(i * 10 + i, disabledBG);
     }
