@@ -26,13 +26,13 @@ public class Main{
         btnReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                checkLogic();
+                resetGame();
             }
         });
         btnCheck.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                resetGame();
+                checkLogic();
             }
         });
 
