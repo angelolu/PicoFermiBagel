@@ -5,13 +5,16 @@ public class Logic {
 	private int nr; /* This is the number in the same place as the user input */
 	private int secondNr; /* This is the number in the opposite place of the two digit number */
 	
-	public Logic(int userNr, int nr, int secondNr) {
+	public Logic() {
+		
+	}
+
+	public void setLogic(int userNr, int nr, int secondNr) {
 		this.userNr = userNr;
 		this.nr = nr;
 		this.secondNr = secondNr;
 	}
-
-	String getState() {
+	public String getState() {
 		
 		if(userNr == nr) return "Fermi";
 		
