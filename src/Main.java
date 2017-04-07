@@ -176,7 +176,7 @@ public class Main {
         
         numTries++;
         labelTries.setText("Guesses: " + numTries);
-        if(txt1.isEditable() == txt2.isEditable()) {
+        if(txt1.isEditable() == false && txt2.isEditable() == false) {
         	String plural;
         	if(numTries == 1)  plural = "try";
         	else plural = "tries";
