@@ -179,7 +179,11 @@ public class Main {
         numTries++;
         labelTries.setText("Guesses: " + numTries);
         if(txt1.isEditable() == txt2.isEditable()) {
-        	JOptionPane.showMessageDialog(frame, "You win");
+        	String plural;
+        	if(numTries == 1)  plural = "try";
+        	else plural = "tries";
+        	String message = "You win, and took " + numTries + " " + plural;
+        	JOptionPane.showMessageDialog(frame, message);
         	resetGame();
         }
     }
