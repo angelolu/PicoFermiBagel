@@ -5,7 +5,7 @@ import java.awt.*;
 public class NumberGrid extends JPanel {
     JLabel[][] panel_array;
     GridLayout myGridLayout = new GridLayout(0, 10);
-    Color defBG = new Color(211, 118, 252);
+    Color defBG = new Color(0, 255, 250);
     Color disabledBG = new Color(180, 180, 180);
 
     public NumberGrid() {

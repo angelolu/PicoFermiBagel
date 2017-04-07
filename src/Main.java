@@ -7,8 +7,6 @@ public class Main {
     static int firstNum, secondNum;
     static NumberGrid myNumberGrid;
     static int numTries; /* Number of tries the player takes to guess correct number */
-    static Logic l1 = new Logic();
-    static Logic l2 = new Logic();
     static JTextField txt1, txt2;
     static JLabel labelTries;
     static JLabel labelTxt1;
