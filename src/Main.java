@@ -25,8 +25,8 @@ public class Main {
         JPanel mainPanel = new JPanel();
         JPanel northPanel = new JPanel();
         JPanel southPanel = new JPanel();
-        JPanel southTxt1Panel = new JPanel(new GridLayout(2,0));
-        JPanel southTxt2Panel = new JPanel(new GridLayout(2,0));
+        JPanel southTxt1Panel = new JPanel(new GridLayout(2, 0));
+        JPanel southTxt2Panel = new JPanel(new GridLayout(2, 0));
         mainPanel.setLayout(new BorderLayout());
 
         //Initializes buttons
@@ -51,10 +51,10 @@ public class Main {
         txt2 = new JTextField(20);
 
         //Initializes labels
-        labelTries = new JLabel("Tries: 0");
-        labelTxt1 = new JLabel("^ Pico ^");
+        labelTries = new JLabel();
+        labelTxt1 = new JLabel();
+        labelTxt2 = new JLabel();
         labelTxt1.setHorizontalAlignment(SwingConstants.CENTER);
-        labelTxt2 = new JLabel("^ Fermi ^");
         labelTxt2.setHorizontalAlignment(SwingConstants.CENTER);
         JLabel labelGuess = new JLabel("Guess:");
         labelGuess.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -88,8 +88,19 @@ public class Main {
 
     private static void resetGame() {
         numTries = 0;
-        Random rand = new Random();
+        //Reset Labels
+        labelTries.setText("Tries: 0");
+        labelTxt1.setText("^ Enter a Digit ^");
+        labelTxt2.setText("^ Enter a Digit ^");
+
+        //Unblock text boxes
+        txt1.setEditable(true);
+        txt2.setEditable(true);
+        txt1.setText("");
+        txt2.setText("");
+
         //Selects each digit of the two digit number individually
+        Random rand = new Random();
         firstNum = rand.nextInt(9) + 1;
         secondNum = rand.nextInt(9) + 1;
         while (firstNum == secondNum) {
@@ -103,44 +114,63 @@ public class Main {
     private static void checkLogic() {
         //Checks game types of inputted digits
 
-    	//Check if the text fields have unique digits (same digits not allowed)
-    	if(Integer.parseInt(txt1.getText()) != Integer.parseInt(txt2.getText())) {
-    	
-        	//Put guess digits into one number
-        	int guess = Integer.parseInt(txt1.getText()) * 10 + Integer.parseInt(txt2.getText());
+        //Check if the text fields have unique digits (same digits not allowed)
+        if (Integer.parseInt(txt1.getText()) != Integer.parseInt(txt2.getText())) {
+
+            //Put guess digits into one number
+            int guess = Integer.parseInt(txt1.getText()) * 10 + Integer.parseInt(txt2.getText());
             System.out.println(guess);
-        	
-        	//Check first text field
+
+            //Check first text field
             if (Integer.parseInt(txt1.getText()) == firstNum) {
                 txt1.setEditable(false); /* Guessed right digit in right position so cannot edit this digit */
-            	System.out.println("Fermi");
+                labelTxt1.setText("^ Fermi ^");
             } else if (Integer.parseInt(txt1.getText()) == secondNum) {
-            	//Cross out numbers ending with this digit
+                //Cross out numbers ending with this digit
                 myNumberGrid.selectColumn(guess);
-            	System.out.println("Pico");
+                labelTxt1.setText("^ Pico ^");
             } else {
-            	//Cross out numbers starting with this digit
-            	myNumberGrid.selectRow(guess);
-            	System.out.println("Bagel");
+                //Cross out numbers starting with this digit
+                myNumberGrid.selectRow(guess);
+                labelTxt1.setText("^ Bagel ^");
             }
 
             //Check second text field
             if (Integer.parseInt(txt2.getText()) == secondNum) {
-            	txt2.setEditable(false); /* Guessed right digit in right position so cannot edit this digit */
-            	System.out.println("Fermi");
+                txt2.setEditable(false); /* Guessed right digit in right position so cannot edit this digit */
+                labelTxt2.setText("^ Fermi ^");
             } else if (Integer.parseInt(txt2.getText()) == firstNum) {
                 //Cross out numbers starting with this digit
-            	myNumberGrid.selectRow(guess);
-            	System.out.println("Pico");
+                myNumberGrid.selectRow(guess);
+                labelTxt2.setText("^ Pico ^");
             } else {
-            	//Cross out numbers ending with this digit
-            	myNumberGrid.selectColumn(guess);
-            	System.out.println("Bagel");
+                //Cross out numbers ending with this digit
+                myNumberGrid.selectColumn(guess);
+                labelTxt2.setText("^ Bagel ^");
             }
-            
-            
-    	}
+
+
+        } else {
+            if (Integer.parseInt(txt1.getText()) != secondNum) {
+                myNumberGrid.selectColumn(Integer.parseInt(txt1.getText()) * 10 + Integer.parseInt(txt1.getText()));
+            } else {
+                labelTxt1.setText("^ Pico ^");
+            }
+            if (Integer.parseInt(txt2.getText()) != firstNum) {
+                myNumberGrid.selectRow(Integer.parseInt(txt1.getText()) * 10 + Integer.parseInt(txt1.getText()));
+            } else {
+                labelTxt2.setText("^ Pico ^");
+            }
+            if (Integer.parseInt(txt2.getText()) == secondNum) {
+                txt2.setEditable(false); /* Guessed right digit in right position so cannot edit this digit */
+                labelTxt2.setText("^ Fermi ^");
+            }
+            if (Integer.parseInt(txt1.getText()) == firstNum) {
+                txt1.setEditable(false); /* Guessed right digit in right position so cannot edit this digit */
+                labelTxt1.setText("^ Fermi ^");
+            }
+        }
         numTries++;
-        System.out.println(numTries);
+        labelTries.setText("Guesses: " + numTries);
     }
 }
