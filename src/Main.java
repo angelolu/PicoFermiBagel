@@ -13,7 +13,9 @@ public class Main {
     static JLabel labelTries;
     static JLabel labelTxt1;
     static JLabel labelTxt2;
-
+    static JFrame frame;
+    
+    
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(
@@ -76,7 +78,7 @@ public class Main {
         mainPanel.add(southPanel, BorderLayout.SOUTH);
 
         //Adds panel to frame and opens frame
-        JFrame frame = new JFrame("Pico-Fermi-Bagel Game");
+        frame = new JFrame("Pico-Fermi-Bagel Game");
         frame.setSize(500, 900);
         frame.setLocationRelativeTo(null);
         frame.add(mainPanel);
@@ -114,6 +116,8 @@ public class Main {
 
     private static void checkLogic() {
         
+    
+    	
         //Check if the text fields have unique digits (same digits not allowed)
         if (Integer.parseInt(txt1.getText()) != Integer.parseInt(txt2.getText())) {
 
@@ -169,8 +173,14 @@ public class Main {
                 txt1.setEditable(false); /* Guessed right digit in right position so cannot edit this digit */
                 labelTxt1.setText("^ Fermi ^");
             }
+            
         }
+        
         numTries++;
         labelTries.setText("Guesses: " + numTries);
+        if(txt1.isEditable() == txt2.isEditable()) {
+        	JOptionPane.showMessageDialog(frame, "You win");
+        	resetGame();
+        }
     }
 }
