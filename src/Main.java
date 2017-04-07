@@ -10,7 +10,7 @@ public class Main {
     static Logic l1 = new Logic();
     static Logic l2 = new Logic();
     static JTextField txt1, txt2;
-    static JLabel labelTries, labelTxt1, labelTxt2;
+    static JLabel labelTries;
 
     public static void main(String[] args) {
         try {
@@ -25,8 +25,6 @@ public class Main {
         JPanel mainPanel = new JPanel();
         JPanel northPanel = new JPanel();
         JPanel southPanel = new JPanel();
-        JPanel southTxt1Panel = new JPanel(new GridLayout(2,0));
-        JPanel southTxt2Panel = new JPanel(new GridLayout(2,0));
         mainPanel.setLayout(new BorderLayout());
 
         //Initializes buttons
@@ -52,23 +50,13 @@ public class Main {
 
         //Initializes labels
         labelTries = new JLabel("Tries: 0");
-        labelTxt1 = new JLabel("^ Pico ^");
-        labelTxt1.setHorizontalAlignment(SwingConstants.CENTER);
-        labelTxt2 = new JLabel("^ Fermi ^");
-        labelTxt2.setHorizontalAlignment(SwingConstants.CENTER);
-        JLabel labelGuess = new JLabel("Guess:");
-        labelGuess.setHorizontalAlignment(SwingConstants.RIGHT);
 
         //Adds components to panel
         northPanel.add(labelTries);
         northPanel.add(btnReset);
-        southPanel.add(labelGuess);
-        southTxt1Panel.add(txt1);
-        southTxt2Panel.add(txt2);
-        southTxt1Panel.add(labelTxt1);
-        southTxt2Panel.add(labelTxt2);
-        southPanel.add(southTxt1Panel);
-        southPanel.add(southTxt2Panel);
+        southPanel.add(new JLabel("Guess:"));
+        southPanel.add(txt1);
+        southPanel.add(txt2);
         southPanel.add(btnCheck);
         mainPanel.add(northPanel, BorderLayout.NORTH);
         mainPanel.add(myNumberGrid, BorderLayout.CENTER);
@@ -102,7 +90,7 @@ public class Main {
 
     private static void checkLogic() {
         //Checks game types of inputted digits
-
+    	
     	//Check if the text fields have unique digits (same digits not allowed)
     	if(Integer.parseInt(txt1.getText()) != Integer.parseInt(txt2.getText())) {
     	
@@ -110,6 +98,9 @@ public class Main {
         	int guess = Integer.parseInt(txt1.getText()) * 10 + Integer.parseInt(txt2.getText());
             System.out.println(guess);
         	
+            //Counter to check if right number is guessed
+            int fermiCount = 0;
+            
         	//Check first text field
             if (Integer.parseInt(txt1.getText()) == firstNum) {
                 txt1.setEditable(false); /* Guessed right digit in right position so cannot edit this digit */
