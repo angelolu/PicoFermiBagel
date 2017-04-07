@@ -1,3 +1,5 @@
+// The following code was written by Angelo Lu (20011350) and Hayden Pfeiffer (20014849)
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -5,8 +7,8 @@ import java.awt.*;
 public class NumberGrid extends JPanel {
     JLabel[][] panel_array;
     GridLayout myGridLayout = new GridLayout(0, 10);
-    Color defBG = new Color(0, 255, 250);
-    Color disabledBG = new Color(180, 180, 180);
+    Color defBG = new Color(238, 189, 49);
+    Color disabledBG = new Color(157, 25, 57);
 
     public NumberGrid() {
         LineBorder defBorder = new LineBorder(new Color(0, 0, 0), 1);

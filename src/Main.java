@@ -1,26 +1,25 @@
+// The following code was written by Angelo Lu (20011350) and Hayden Pfeiffer (20014849)
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
 
 public class Main {
-    static int firstNum, secondNum;
+    static int firstNum, secondNum; // Randomized numbers
     static NumberGrid myNumberGrid;
-    static int numTries; /* Number of tries the player takes to guess correct number */
+    static int numTries; // Number of tries the player takes to guess correct number
     static JTextField txt1, txt2;
-    static JLabel labelTries;
-    static JLabel labelTxt1;
-    static JLabel labelTxt2;
+    static JLabel labelTries, labelTxt1, labelTxt2;
     static JFrame frame;
-    
-    
+
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel(
-                    UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
-            System.out.println("Not found.");
+            System.out.println("Theme not found.");
         }
+
         //Initializes GUI elements
         myNumberGrid = new NumberGrid();
         //Initializes JFrame and JPanel
@@ -54,7 +53,7 @@ public class Main {
         txt2 = new JTextField(20);
 
         //Initializes labels
-        labelTries = new JLabel("Tries: 0");
+        labelTries = new JLabel();
         labelTries = new JLabel();
         labelTxt1 = new JLabel();
         labelTxt2 = new JLabel();
@@ -63,13 +62,16 @@ public class Main {
         JLabel labelGuess = new JLabel("Guess:");
         labelGuess.setHorizontalAlignment(SwingConstants.RIGHT);
 
-
         //Adds components to panel
         northPanel.add(labelTries);
         northPanel.add(btnReset);
         southPanel.add(new JLabel("Guess:"));
-        southPanel.add(txt1);
-        southPanel.add(txt2);
+        southTxt1Panel.add(txt1);
+        southTxt1Panel.add(labelTxt1);
+        southTxt2Panel.add(txt2);
+        southTxt2Panel.add(labelTxt2);
+        southPanel.add(southTxt1Panel);
+        southPanel.add(southTxt2Panel);
         southPanel.add(btnCheck);
         mainPanel.add(northPanel, BorderLayout.NORTH);
         mainPanel.add(myNumberGrid, BorderLayout.CENTER);
@@ -109,19 +111,14 @@ public class Main {
         }
         myNumberGrid.resetColors();
         System.out.println(firstNum * 10 + secondNum); //Combines to give computer generated number as a single number
-
     }
 
     private static void checkLogic() {
-        
-    
-    	
         //Check if the text fields have unique digits (same digits not allowed)
         if (Integer.parseInt(txt1.getText()) != Integer.parseInt(txt2.getText())) {
 
             //Put guess digits into one number
             int guess = Integer.parseInt(txt1.getText()) * 10 + Integer.parseInt(txt2.getText());
-            System.out.println(guess);
 
             //Check first text field
             if (Integer.parseInt(txt1.getText()) == firstNum) {
@@ -153,6 +150,7 @@ public class Main {
 
 
         } else {
+            // Logic if both numbers entered was the safe
             if (Integer.parseInt(txt1.getText()) != secondNum) {
                 myNumberGrid.selectColumn(Integer.parseInt(txt1.getText()) * 10 + Integer.parseInt(txt1.getText()));
             } else {
@@ -171,18 +169,19 @@ public class Main {
                 txt1.setEditable(false); /* Guessed right digit in right position so cannot edit this digit */
                 labelTxt1.setText("^ Fermi ^");
             }
-            
+
         }
-        
+
         numTries++;
         labelTries.setText("Guesses: " + numTries);
-        if(txt1.isEditable() == false && txt2.isEditable() == false) {
-        	String plural;
-        	if(numTries == 1)  plural = "try";
-        	else plural = "tries";
-        	String message = "You win, and took " + numTries + " " + plural;
-        	JOptionPane.showMessageDialog(frame, message);
-        	resetGame();
+        // Display win dialog
+        if (txt1.isEditable() == false && txt2.isEditable() == false) {
+            String plural;
+            if (numTries == 1) plural = "try";
+            else plural = "tries";
+            String message = "You win\nYou took " + numTries + " " + plural;
+            JOptionPane.showMessageDialog(frame, message);
+            resetGame();
         }
     }
 }
